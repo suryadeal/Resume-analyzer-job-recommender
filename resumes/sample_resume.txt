@@ -1,0 +1,1 @@
+Hi, I'm a software engineer skilled in Python, machine learning, pandas, and SQL. I've also worked on web apps using Flask and Excel.

@@ -1,0 +1,1 @@
+I am a backend developer experienced in Java, Flask, SQL, and cloud deployment. I have built APIs and microservices, and I work with REST, Git, and Docker.
