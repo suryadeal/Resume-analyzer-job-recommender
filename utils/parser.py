@@ -1,9 +1,22 @@
-import re
+import spacy
+from spacy.matcher import PhraseMatcher
+
+# Load English NLP model
+nlp = spacy.load("en_core_web_sm")
+
+# Define known skills (you can expand this list)
+SKILLS = [
+    "python", "java", "selenium", "selenium webdriver", "testng", "appium",
+    "django", "flask", "sql", "pandas", "machine learning"
+]
+
+# Initialize matcher with lowercase matching
+matcher = PhraseMatcher(nlp.vocab, attr="LOWER")
+patterns = [nlp.make_doc(skill) for skill in SKILLS]
+matcher.add("SKILLS", None, *patterns)
 
 def extract_skills(text):
-    skills_list = ['python', 'java', 'sql', 'machine learning', 'deep learning', 'nlp', 'excel', 'pandas', 'flask']
-    found = []
-    for skill in skills_list:
-        if re.search(r'\b' + skill + r'\b', text.lower()):
-            found.append(skill)
-    return list(set(found))
+    doc = nlp(text)
+    matches = matcher(doc)
+    found_skills = list(set([doc[start:end].text.lower() for _, start, end in matches]))
+    return sorted(found_skills)
