@@ -17,10 +17,10 @@ def load_spacy_model():
 
 nlp = load_spacy_model()
 try:
-    nlp = spacy.load("en_core_web_sm")
+    nlp = spacy.load("en")
 except OSError:
-    download("en_core_web_sm")
-    nlp = spacy.load("en_core_web_sm")
+    download("en")
+    nlp = spacy.load("en")
 
 
 # Define known skills (you can expand this list)
