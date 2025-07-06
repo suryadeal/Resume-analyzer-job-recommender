@@ -14,22 +14,24 @@ def main():
     uploaded_file = st.file_uploader("Upload Resume (.txt or .docx)", type=["txt", "docx"])
 
     if uploaded_file:
-        if uploaded_file.name.endswith(".txt"):
-            resume_text = uploaded_file.read().decode("utf-8")
-        elif uploaded_file.name.endswith(".docx"):
-            resume_text = read_docx(uploaded_file)
+     if uploaded_file.name.endswith(".txt"):
+        resume_text = uploaded_file.read().decode("utf-8")
+    elif uploaded_file.name.endswith(".docx"):
+        resume_text = read_docx(uploaded_file)
 
-        st.subheader("✅ Resume Text")
-        st.code(resume_text)
+    st.subheader("✅ Resume Text")
+    st.code(resume_text)
 
+    with st.spinner("Extracting skills and finding jobs... ⏳"):
         skills = extract_skills(resume_text)
-        st.subheader("🧠 Extracted Skills")
-        st.write(skills)
-
         results = recommend_jobs(resume_text)
-        st.subheader("🎯 Recommended Jobs")
-        for _, row in results.iterrows():
-            st.markdown(f"🔹 **{row['title']}** — Similarity: `{row['similarity']:.2f}`")
+
+    st.subheader("🧠 Extracted Skills")
+    st.write(skills)
+
+    st.subheader("🎯 Recommended Jobs")
+    for _, row in results.iterrows():
+        st.markdown(f"🔹 **{row['title']}** — Similarity: `{row['similarity']:.2f}`")
 
 if __name__ == "__main__":
     main()
