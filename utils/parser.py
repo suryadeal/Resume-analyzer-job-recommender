@@ -9,11 +9,11 @@ import streamlit as st
 @st.cache_resource
 def load_spacy_model():
     try:
-        return spacy.load("en_core_web_sm")
+        return spacy.load("en")
     except OSError:
         print("⚠️ spaCy model not found. Downloading...")
-        download("en_core_web_sm")
-        return spacy.load("en_core_web_sm")
+        download("en")
+        return spacy.load("en")
 
 nlp = load_spacy_model()
 try:
