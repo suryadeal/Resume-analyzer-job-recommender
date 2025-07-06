@@ -4,7 +4,18 @@ from spacy.matcher import PhraseMatcher
 # Load English NLP model
 import spacy
 from spacy.cli import download
+import streamlit as st
 
+@st.cache_resource
+def load_spacy_model():
+    try:
+        return spacy.load("en_core_web_sm")
+    except OSError:
+        print("⚠️ spaCy model not found. Downloading...")
+        download("en_core_web_sm")
+        return spacy.load("en_core_web_sm")
+
+nlp = load_spacy_model()
 try:
     nlp = spacy.load("en_core_web_sm")
 except OSError:
