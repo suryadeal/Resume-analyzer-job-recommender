@@ -1,39 +1,21 @@
 import spacy
 from spacy.matcher import PhraseMatcher
 
-# Load English NLP model
-import spacy
-from spacy.cli import download
-import streamlit as st
+# ✅ Use a lightweight blank English pipeline — no model download needed
+nlp = spacy.blank("en")
 
-@st.cache_resource
-def load_spacy_model():
-    try:
-        return spacy.load("en")
-    except OSError:
-        print("⚠️ spaCy model not found. Downloading...")
-        download("en")
-        return spacy.load("en")
-
-nlp = load_spacy_model()
-try:
-    nlp = spacy.load("en")
-except OSError:
-    download("en")
-    nlp = spacy.load("en")
-
-
-# Define known skills (you can expand this list)
+# 🔧 Define skill list
 SKILLS = [
     "python", "java", "selenium", "selenium webdriver", "testng", "appium",
-    "django", "flask", "sql", "pandas", "machine learning"
+    "flask", "django", "sql", "pandas", "machine learning", "rest api"
 ]
 
-# Initialize matcher with lowercase matching
+# 🔍 Setup PhraseMatcher for exact/variant skill detection
 matcher = PhraseMatcher(nlp.vocab, attr="LOWER")
 patterns = [nlp.make_doc(skill) for skill in SKILLS]
-matcher.add("SKILLS", None, *patterns)
+matcher.add("SKILLS", patterns)
 
+# 🧠 Skill extraction function
 def extract_skills(text):
     doc = nlp(text)
     matches = matcher(doc)
