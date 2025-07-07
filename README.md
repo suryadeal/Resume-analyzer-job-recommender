@@ -18,6 +18,8 @@ An AI-powered web app that extracts skills from resumes and recommends job roles
 ### 📝 Resume Upload Page
 ![Resume Upload](screenshots/upload.png)
 
+### 🧠 Skills Extraction & Job Recommendations
+![Results](screenshots/results.png)
 ---
 
 ## ✅ How It Works
