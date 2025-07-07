@@ -12,17 +12,19 @@ def main():
     st.title("📄 Resume Analyzer & Job Recommender")
 
     uploaded_file = st.file_uploader("Upload Resume (.txt or .docx)", type=["txt", "docx"])
-
-    if uploaded_file:
-     if uploaded_file.name.endswith(".txt"):
+    
+if uploaded_file is not None:
+    if uploaded_file.name.endswith(".txt"):
         resume_text = uploaded_file.read().decode("utf-8")
     elif uploaded_file.name.endswith(".docx"):
         resume_text = read_docx(uploaded_file)
+    else:
+        st.warning("Please upload a .txt or .docx file only.")
 
     st.subheader("✅ Resume Text")
     st.code(resume_text)
 
-    with st.spinner("Extracting skills and finding jobs... ⏳"):
+    with st.spinner("Extracting skills and finding jobs..."):
         skills = extract_skills(resume_text)
         results = recommend_jobs(resume_text)
 
@@ -32,6 +34,7 @@ def main():
     st.subheader("🎯 Recommended Jobs")
     for _, row in results.iterrows():
         st.markdown(f"🔹 **{row['title']}** — Similarity: `{row['similarity']:.2f}`")
+
 
 if __name__ == "__main__":
     main()
