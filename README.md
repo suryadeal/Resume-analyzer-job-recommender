@@ -39,3 +39,10 @@ git clone https://github.com/suryadeal/resume-analyzer-job-recommender.git
 cd resume-analyzer-job-recommender
 pip install -r requirements.txt
 streamlit run streamlit_app.py
+
+
+## 👨‍💻 Developer
+
+**Surya Prashanth**  
+Microsoft Edunet Foundation AI/ML Intern  
+Passionate about building real-world AI applications
